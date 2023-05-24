@@ -1,4 +1,4 @@
-function Main() {
+function Main(props) {
   return (
     <>
       <main className='content'>
@@ -10,6 +10,7 @@ function Main() {
               className='profile__avatar'
             />
             <button
+              onClick={props.onEditAvatar}
               className='profile__avatar-button'
               aria-label='Сменить аватар.'
               type='button'
@@ -17,6 +18,7 @@ function Main() {
             <div className='profile__description'>
               <h1 className='profile__name'>...</h1>
               <button
+                onClick={props.onEditProfile}
                 className='profile__edit-button'
                 aria-label='Редактировать профиль.'
                 type='button'
@@ -25,6 +27,7 @@ function Main() {
             </div>
           </div>
           <button
+            onClick={props.onAddPlace}
             className='profile__add-button'
             aria-label='Добавить место.'
             type='button'
@@ -33,7 +36,7 @@ function Main() {
         <section className='cards' aria-label='Фотогалерея.'></section>
       </main>
     </>
-  )
+  );
 }
 
 export default Main;
