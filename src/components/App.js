@@ -5,7 +5,7 @@ import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
-function App() {
+export default function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
@@ -115,31 +115,6 @@ function App() {
         submitText='Да'
       />
       <ImagePopup />
-      <template className='card-template'>
-        <article className='card'>
-          <div className='card__image-wrap'>
-            <img src='#' alt='' className='card__image' />
-          </div>
-          <div className='card__info'>
-            <h2 className='card__title'></h2>
-            <div className='card__likes'>
-              <button
-                className='card__like-button'
-                aria-label='Мне нравится.'
-                type='button'
-              ></button>
-              <p className='card__like-counter'></p>
-            </div>
-          </div>
-          <button
-            className='card__remove-button'
-            aria-label='Удалить место.'
-            type='button'
-          ></button>
-        </article>
-      </template>
     </>
   );
 }
-
-export default App;

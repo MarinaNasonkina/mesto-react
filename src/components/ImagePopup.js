@@ -1,4 +1,4 @@
-function ImagePopup() {
+export default function ImagePopup() {
   return (
     <section
       className='popup popup_type_full-screen-place'
@@ -16,5 +16,3 @@ function ImagePopup() {
     </section>
   );
 }
-
-export default ImagePopup;
