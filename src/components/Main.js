@@ -9,10 +9,7 @@ export default function Main(props) {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    Promise.all([
-      api.getUserData(),
-      api.getInitialCards()
-    ])
+    Promise.all([api.getUserData(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
         setUserAvatar(userData.avatar);
         setUserName(userData.name);
@@ -59,7 +56,7 @@ export default function Main(props) {
           ></button>
         </section>
         <section className='cards' aria-label='Фотогалерея.'>
-          {cards.map(card => (
+          {cards.map((card) => (
             <Card key={card._id} card={card} onCardClick={props.onCardClick} />
           ))}
         </section>

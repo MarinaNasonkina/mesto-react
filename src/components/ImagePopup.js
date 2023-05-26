@@ -11,7 +11,11 @@ export default function ImagePopup(props) {
           type='button'
           onClick={props.onClose}
         ></button>
-        <img src={`${props.card.link}`} alt={`${props.card.name}`} className='popup__image' />
+        <img
+          src={`${props.card.link}`}
+          alt={`${props.card.name}`}
+          className='popup__image'
+        />
         <p className='popup__subtitle'>{props.card.name}</p>
       </div>
     </section>

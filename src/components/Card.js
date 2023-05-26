@@ -1,7 +1,7 @@
 export default function Card(props) {
   function handleImageClick(card) {
     props.onCardClick(card);
-  }  
+  }
 
   return (
     <article className='card'>

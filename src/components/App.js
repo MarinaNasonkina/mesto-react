@@ -119,12 +119,12 @@ export default function App() {
         />
         <span className='place-img-input-error popup__input-error'></span>
       </PopupWithForm>
-      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
-      <PopupWithForm
-        name='confirmation'
-        title='Вы уверены?'
-        submitText='Да'
+      <ImagePopup
+        card={selectedCard}
+        isOpen={isImagePopupOpen}
+        onClose={closeAllPopups}
       />
+      <PopupWithForm name='confirmation' title='Вы уверены?' submitText='Да' />
     </>
   );
 }

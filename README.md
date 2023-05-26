@@ -4,7 +4,7 @@
 
 ## GitHub Pages
 
-Посмотреть сайт можно [здесь](https://marinanasonkina.github.io/mesto-react/).
+Посмотреть сайт можно [здесь](https://marinanasonkina.github.io/mesto-react/) (_временно не работает_).
 
 ## Описание проекта
 
