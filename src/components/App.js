@@ -9,6 +9,8 @@ export default function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
   
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -26,6 +28,13 @@ export default function App() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setIsImagePopupOpen(false);
+    setSelectedCard({});
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    setIsImagePopupOpen(true);
   }
 
   return (
@@ -35,6 +44,7 @@ export default function App() {
         onEditAvatar={handleEditAvatarClick}
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
       />
       <Footer />
       <PopupWithForm
@@ -109,12 +119,12 @@ export default function App() {
         />
         <span className='place-img-input-error popup__input-error'></span>
       </PopupWithForm>
+      <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
       <PopupWithForm
         name='confirmation'
         title='Вы уверены?'
         submitText='Да'
       />
-      <ImagePopup />
     </>
   );
 }
