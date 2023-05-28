@@ -1,27 +1,27 @@
-export default function Card(props) {
+export default function Card({ card, onCardClick }) {
   function handleImageClick(card) {
-    props.onCardClick(card);
+    onCardClick(card);
   }
 
   return (
     <article className='card'>
       <div className='card__image-wrap'>
         <img 
-          src={`${props.card.link}`}
-          alt={`${props.card.name}`}
+          src={`${card.link}`}
+          alt={`${card.name}`}
           className='card__image'
-          onClick={() => handleImageClick(props.card)}
+          onClick={() => handleImageClick(card)}
         />
       </div>
       <div className='card__info'>
-        <h2 className='card__title'>{props.card.name}</h2>
+        <h2 className='card__title'>{card.name}</h2>
         <div className='card__likes'>
           <button
             className='card__like-button'
             aria-label='Мне нравится.'
             type='button'
           ></button>
-          <p className='card__like-counter'>{props.card.likes.length}</p>
+          <p className='card__like-counter'>{card.likes.length}</p>
         </div>
       </div>
       <button

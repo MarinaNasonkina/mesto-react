@@ -1,14 +1,19 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import Card from './Card';
 import api from '../utils/api';
 
-export default function Main(props) {
-  const [userAvatar, setUserAvatar] = React.useState('');
-  const [userName, setUserName] = React.useState('');
-  const [userDescription, setUserDescription] = React.useState('');
-  const [cards, setCards] = React.useState([]);
+export default function Main({
+    onEditAvatar,
+    onEditProfile,
+    onAddPlace,
+    onCardClick
+  }) {
+  const [userAvatar, setUserAvatar] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userDescription, setUserDescription] = useState('');
+  const [cards, setCards] = useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     Promise.all([api.getUserData(), api.getInitialCards()])
       .then(([userData, initialCards]) => {
         setUserAvatar(userData.avatar);
@@ -32,7 +37,7 @@ export default function Main(props) {
               className='profile__avatar'
             />
             <button
-              onClick={props.onEditAvatar}
+              onClick={onEditAvatar}
               className='profile__avatar-button'
               aria-label='Сменить аватар.'
               type='button'
@@ -40,7 +45,7 @@ export default function Main(props) {
             <div className='profile__description'>
               <h1 className='profile__name'>{userName}</h1>
               <button
-                onClick={props.onEditProfile}
+                onClick={onEditProfile}
                 className='profile__edit-button'
                 aria-label='Редактировать профиль.'
                 type='button'
@@ -49,7 +54,7 @@ export default function Main(props) {
             </div>
           </div>
           <button
-            onClick={props.onAddPlace}
+            onClick={onAddPlace}
             className='profile__add-button'
             aria-label='Добавить место.'
             type='button'
@@ -57,7 +62,7 @@ export default function Main(props) {
         </section>
         <section className='cards' aria-label='Фотогалерея.'>
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={props.onCardClick} />
+            <Card key={card._id} card={card} onCardClick={onCardClick} />
           ))}
         </section>
       </main>
