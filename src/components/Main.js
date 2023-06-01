@@ -7,7 +7,9 @@ export default function Main({
   onEditAvatar,
   onEditProfile,
   onAddPlace,
-  onCardClick
+  onCardClick,
+  onCardLike,
+  onCardDelete
   }) {
   const user = useContext(CurrentUserContext);
 
@@ -47,7 +49,13 @@ export default function Main({
         </section>
         <section className='cards' aria-label='Фотогалерея.'>
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={onCardClick} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={onCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
+            />
           ))}
         </section>
       </main>

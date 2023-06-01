@@ -52,6 +52,31 @@ export default function App() {
     setIsImagePopupOpen(true);
   }
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(like => like._id === currentUser._id);
+    api.changeLikeStatus(card._id, isLiked)
+      .then((newCard) => {
+        setCards((cards) =>
+          cards.map((oldCard) => (oldCard._id === card._id ? newCard : oldCard))
+        );
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((cards) =>
+          cards.filter((oldCard) => (oldCard._id !== card._id))
+        );
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -61,6 +86,8 @@ export default function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
       />
       <Footer />
       <PopupWithForm
@@ -140,7 +167,11 @@ export default function App() {
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
       />
-      <PopupWithForm name='confirmation' title='Вы уверены?' submitText='Да' />
+      <PopupWithForm 
+        name='confirmation'
+        title='Вы уверены?'
+        submitText='Да'
+      />
     </CurrentUserContext.Provider>
   );
 }
