@@ -13,12 +13,13 @@ import api from '../utils/api';
 export default function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState({});
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     Promise.all([api.getUserData(), api.getInitialCards()])
@@ -89,6 +90,7 @@ export default function App() {
   }
 
   function handleUpdateUser(formData) {
+    setIsLoading(true);
     api.editUserData(formData)
       .then((result) => {
         setCurrentUser(result);
@@ -96,10 +98,14 @@ export default function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar(formData) {
+    setIsLoading(true);
     api.editAvatar(formData)
       .then((result) => {
         setCurrentUser(result);
@@ -107,10 +113,14 @@ export default function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
   function handleAddPlaceSubmit(formData) {
+    setIsLoading(true);
     api.addNewCard(formData)
       .then((newCard) => {
         setCards([newCard, ...cards]);
@@ -118,6 +128,9 @@ export default function App() {
       })
       .catch((err) => {
         alert(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -138,16 +151,19 @@ export default function App() {
         onUpdateAvatar={handleUpdateAvatar}
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <EditProfilePopup
         onUpdateUser={handleUpdateUser}
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <AddPlacePopup
         onAddPlace={handleAddPlaceSubmit}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
+        isLoading={isLoading}
       />
       <ImagePopup
         card={selectedCard}
