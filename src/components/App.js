@@ -4,6 +4,7 @@ import Main from './Main';
 import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import CurrentUserContext from '../contexts/CurrentUserContext';
@@ -101,6 +102,17 @@ export default function App() {
       });
   }
 
+  function handleAddPlaceSubmit(formData) {
+    api.addNewCard(formData)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
@@ -114,45 +126,27 @@ export default function App() {
         onCardDelete={handleCardDelete}
       />
       <Footer />
-      <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
-      <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
-      <PopupWithForm
-        name='add-place'
-        title='Новое место'
-        submitText='Создать'
+      <EditAvatarPopup
+        onUpdateAvatar={handleUpdateAvatar}
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
+      />
+      <EditProfilePopup
+        onUpdateUser={handleUpdateUser}
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
+      />
+      <AddPlacePopup
+        onAddPlace={handleAddPlaceSubmit}
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}
-      >
-        <input
-          className='popup__field popup__field_type_place-name'
-          placeholder='Название'
-          name='name'
-          id='place-name-input'
-          minLength='2'
-          maxLength='30'
-          required
-        />
-        <span className='place-name-input-error popup__input-error'></span>
-        <input
-          className='popup__field popup__field_type_place-img'
-          placeholder='Ссылка на картинку'
-          name='link'
-          id='place-img-input'
-          type='url'
-          required
-        />
-        <span className='place-img-input-error popup__input-error'></span>
-      </PopupWithForm>
+      />
       <ImagePopup
         card={selectedCard}
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
       />
-      <PopupWithForm 
-        name='confirmation'
-        title='Вы уверены?'
-        submitText='Да'
-      />
+      <PopupWithForm name='confirmation' title='Вы уверены?' submitText='Да' />
     </CurrentUserContext.Provider>
   );
 }
