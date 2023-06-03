@@ -65,6 +65,7 @@ export default function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(like => like._id === currentUser._id);
+
     api.changeLikeStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((cards) =>
@@ -91,6 +92,7 @@ export default function App() {
 
   function handleUpdateUser(formData) {
     setIsLoading(true);
+
     api.editUserData(formData)
       .then((result) => {
         setCurrentUser(result);
@@ -106,6 +108,7 @@ export default function App() {
 
   function handleUpdateAvatar(formData) {
     setIsLoading(true);
+
     api.editAvatar(formData)
       .then((result) => {
         setCurrentUser(result);
@@ -121,6 +124,7 @@ export default function App() {
 
   function handleAddPlaceSubmit(formData) {
     setIsLoading(true);
+
     api.addNewCard(formData)
       .then((newCard) => {
         setCards([newCard, ...cards]);

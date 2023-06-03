@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
-import CurrentUserContext from '../contexts/CurrentUserContext';
 import PopupWithForm from './PopupWithForm';
+import CurrentUserContext from '../contexts/CurrentUserContext';
+import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
 export default function EditProfilePopup({ onUpdateUser, isOpen, onClose, isLoading }) {
   const user = useContext(CurrentUserContext);
@@ -23,6 +24,14 @@ export default function EditProfilePopup({ onUpdateUser, isOpen, onClose, isLoad
     });
   }
 
+  function handleCloseWithoutSubmit() {
+    onClose();
+    setName(user.name);
+    setDescription(user.about);
+  }
+
+  useAdditionalClosePopup(handleCloseWithoutSubmit);
+
   useEffect(() => {
     setName(user.name);
     setDescription(user.about);
@@ -34,7 +43,7 @@ export default function EditProfilePopup({ onUpdateUser, isOpen, onClose, isLoad
       title='Редактировать профиль'
       submitText='Сохранить'
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleCloseWithoutSubmit}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     >

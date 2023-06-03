@@ -1,4 +1,8 @@
+import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
+
 export default function ImagePopup({ card, isOpen, onClose }) {
+  useAdditionalClosePopup(onClose);
+
   return (
     <section
       className={`popup ${isOpen ? 'popup_opened' : ''} popup_type_full-screen-place`}

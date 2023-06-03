@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
+import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
 export default function AddPlacePopup({ onAddPlace, isOpen, onClose, isLoading }) {
   const [name, setName] = useState('');
@@ -23,13 +24,21 @@ export default function AddPlacePopup({ onAddPlace, isOpen, onClose, isLoading }
     setLink('');
   }
 
+  function handleCloseWithoutSubmit() {
+    onClose();
+    setName('');
+    setLink('');
+  }
+
+  useAdditionalClosePopup(handleCloseWithoutSubmit);
+
   return (
     <PopupWithForm
       name='add-place'
       title='Новое место'
       submitText='Создать'
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleCloseWithoutSubmit}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     >

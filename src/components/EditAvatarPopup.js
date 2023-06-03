@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
+import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
 export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose, isLoading }) {
   const avatar = useRef();
@@ -10,13 +11,20 @@ export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose, isLoa
     avatar.current.value = '';
   }
 
+  function handleCloseWithoutSubmit() {
+    onClose();
+    avatar.current.value = '';
+  }
+
+  useAdditionalClosePopup(handleCloseWithoutSubmit);
+
   return (
     <PopupWithForm
       name='edit-avatar'
       title='Обновить аватар'
       submitText='Сохранить'
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleCloseWithoutSubmit}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     >
