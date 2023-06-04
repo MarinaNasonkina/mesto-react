@@ -2,7 +2,12 @@ import { useState } from 'react';
 import PopupWithForm from './PopupWithForm';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
-export default function AddPlacePopup({ onAddPlace, isOpen, onClose, isLoading }) {
+export default function AddPlacePopup({
+  onAddPlace,
+  isOpen,
+  onClose,
+  isLoading,
+}) {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 

@@ -3,7 +3,12 @@ import PopupWithForm from './PopupWithForm';
 import CurrentUserContext from '../contexts/CurrentUserContext';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
-export default function EditProfilePopup({ onUpdateUser, isOpen, onClose, isLoading }) {
+export default function EditProfilePopup({
+  onUpdateUser,
+  isOpen,
+  onClose,
+  isLoading,
+}) {
   const user = useContext(CurrentUserContext);
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');

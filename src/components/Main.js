@@ -9,8 +9,8 @@ export default function Main({
   onAddPlace,
   onCardClick,
   onCardLike,
-  onCardDeleteClick
-  }) {
+  onCardDeleteClick,
+}) {
   const user = useContext(CurrentUserContext);
 
   return (

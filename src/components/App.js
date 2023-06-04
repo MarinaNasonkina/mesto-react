@@ -31,7 +31,7 @@ export default function App() {
         alert(err);
       });
   }, []);
-  
+
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
   }
@@ -64,9 +64,10 @@ export default function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(like => like._id === currentUser._id);
+    const isLiked = card.likes.some((like) => like._id === currentUser._id);
 
-    api.changeLikeStatus(card._id, isLiked)
+    api
+      .changeLikeStatus(card._id, isLiked)
       .then((newCard) => {
         setCards((cards) =>
           cards.map((oldCard) => (oldCard._id === card._id ? newCard : oldCard))
@@ -78,10 +79,11 @@ export default function App() {
   }
 
   function handleCardDelete(card) {
-    api.deleteCard(card._id)
+    api
+      .deleteCard(card._id)
       .then(() => {
         setCards((cards) =>
-          cards.filter((oldCard) => (oldCard._id !== card._id))
+          cards.filter((oldCard) => oldCard._id !== card._id)
         );
         closeAllPopups();
       })
@@ -93,7 +95,8 @@ export default function App() {
   function handleUpdateUser(formData) {
     setIsLoading(true);
 
-    api.editUserData(formData)
+    api
+      .editUserData(formData)
       .then((result) => {
         setCurrentUser(result);
         closeAllPopups();
@@ -109,7 +112,8 @@ export default function App() {
   function handleUpdateAvatar(formData) {
     setIsLoading(true);
 
-    api.editAvatar(formData)
+    api
+      .editAvatar(formData)
       .then((result) => {
         setCurrentUser(result);
         closeAllPopups();
@@ -125,7 +129,8 @@ export default function App() {
   function handleAddPlaceSubmit(formData) {
     setIsLoading(true);
 
-    api.addNewCard(formData)
+    api
+      .addNewCard(formData)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();

@@ -1,7 +1,12 @@
 import PopupWithForm from './PopupWithForm';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
-export default function ConfirmationPopup({ card, onCardDelete, isOpen, onClose }) {
+export default function ConfirmationPopup({
+  card,
+  onCardDelete,
+  isOpen,
+  onClose,
+}) {
   function handleSubmit(e) {
     e.preventDefault();
     onCardDelete(card);
@@ -10,7 +15,7 @@ export default function ConfirmationPopup({ card, onCardDelete, isOpen, onClose 
   useAdditionalClosePopup(onClose);
 
   return (
-    <PopupWithForm 
+    <PopupWithForm
       name='confirmation'
       title='Вы уверены?'
       submitText='Да'

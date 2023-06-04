@@ -2,7 +2,12 @@ import { useRef } from 'react';
 import PopupWithForm from './PopupWithForm';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
-export default function EditAvatarPopup({ onUpdateAvatar, isOpen, onClose, isLoading }) {
+export default function EditAvatarPopup({
+  onUpdateAvatar,
+  isOpen,
+  onClose,
+  isLoading,
+}) {
   const avatar = useRef();
 
   function handleSubmit(e) {

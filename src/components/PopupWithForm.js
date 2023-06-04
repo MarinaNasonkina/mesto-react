@@ -1,6 +1,17 @@
-export default function PopupWithForm({ name, title, submitText, isOpen, onClose, onSubmit, isLoading, children}) {
+export default function PopupWithForm({
+  name,
+  title,
+  submitText,
+  isOpen,
+  onClose,
+  onSubmit,
+  isLoading,
+  children,
+}) {
   return (
-    <section className={`popup ${isOpen ? 'popup_opened' : ''} popup_type_${name}`}>
+    <section
+      className={`popup ${isOpen ? 'popup_opened' : ''} popup_type_${name}`}
+    >
       <div className='popup__container popup__container_for_form'>
         <button
           className='popup__close-button'
@@ -14,10 +25,12 @@ export default function PopupWithForm({ name, title, submitText, isOpen, onClose
           name={name}
           className={`popup__form popup__form_type_${name}`}
           onSubmit={onSubmit}
-          noValidate
         >
           {children}
-          <button type='submit' className={`popup__submit-button ${isLoading ? 'loading' : ''}`}>
+          <button
+            type='submit'
+            className={`popup__submit-button ${isLoading ? 'loading' : ''}`}
+          >
             {isLoading ? 'Сохранение' : submitText}
           </button>
         </form>
