@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
+import useFormValidator from '../utils/useFormValidator';
 
 export default function AddPlacePopup({
   onAddPlace,
@@ -8,16 +9,16 @@ export default function AddPlacePopup({
   onClose,
   isLoading,
 }) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('');
-
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleLinkChange(e) {
-    setLink(e.target.value);
-  }
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    isDisabled,
+    setIsDisabled,
+    handleChange,
+  } = useFormValidator();
+  const { name, link } = values;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -29,10 +30,14 @@ export default function AddPlacePopup({
 
   useEffect(() => {
     if (isOpen) {
-      setName('');
-      setLink('');
+      setValues({
+        name: '',
+        link: '',
+      });
+      setErrors({});
+      setIsDisabled(true);
     }
-  }, [isOpen]);
+  }, [isOpen, setValues, setErrors, setIsDisabled]);
 
   useAdditionalClosePopup(isOpen, onClose);
 
@@ -45,30 +50,29 @@ export default function AddPlacePopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      isDisabled={isDisabled}
     >
       <input
-        className='popup__field popup__field_type_place-name'
+        className={`popup__field ${errors.name && 'popup__field_invalid'} popup__field_type_place-name`}
         placeholder='Название'
         name='name'
-        id='place-name-input'
         minLength='2'
         maxLength='30'
-        value={name}
-        onChange={handleNameChange}
+        value={name || ''}
+        onChange={handleChange}
         required
       />
-      <span className='place-name-input-error popup__input-error'></span>
+      <span className='popup__input-error'>{errors.name}</span>
       <input
-        className='popup__field popup__field_type_place-img'
+        className={`popup__field ${errors.link && 'popup__field_invalid'} popup__field_type_place-img`}
         placeholder='Ссылка на картинку'
         name='link'
-        id='place-img-input'
         type='url'
-        value={link}
-        onChange={handleLinkChange}
+        value={link || ''}
+        onChange={handleChange}
         required
       />
-      <span className='place-img-input-error popup__input-error'></span>
+      <span className='popup__input-error'>{errors.link}</span>
     </PopupWithForm>
   );
 }

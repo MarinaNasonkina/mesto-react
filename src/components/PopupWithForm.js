@@ -6,6 +6,7 @@ export default function PopupWithForm({
   onClose,
   onSubmit,
   isLoading,
+  isDisabled,
   children,
 }) {
   return (
@@ -25,11 +26,13 @@ export default function PopupWithForm({
           name={name}
           className={`popup__form popup__form_type_${name}`}
           onSubmit={onSubmit}
+          noValidate
         >
           {children}
           <button
             type='submit'
             className={`popup__submit-button ${isLoading ? 'loading' : ''}`}
+            {...(isDisabled && {disabled:true})}
           >
             {isLoading ? 'Сохранение' : submitText}
           </button>

@@ -1,6 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useEffect } from 'react';
 import PopupWithForm from './PopupWithForm';
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
+import useFormValidator from '../utils/useFormValidator';
 
 export default function EditAvatarPopup({
   onUpdateAvatar,
@@ -8,18 +9,31 @@ export default function EditAvatarPopup({
   onClose,
   isLoading,
 }) {
-  const avatar = useRef();
+  const {
+    values,
+    setValues,
+    errors,
+    setErrors,
+    isDisabled,
+    setIsDisabled,
+    handleChange,
+  } = useFormValidator();
+  const { avatar } = values;
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateAvatar({ avatar: avatar.current.value });
+    onUpdateAvatar({ avatar });
   }
 
   useEffect(() => {
     if (isOpen) {
-      avatar.current.value = '';
+      setValues({
+        avatar: '',
+      });
+      setErrors({});
+      setIsDisabled(true);
     }
-  }, [isOpen]);
+  }, [isOpen, setValues, setErrors, setIsDisabled]);
 
   useAdditionalClosePopup(isOpen, onClose);
 
@@ -32,17 +46,18 @@ export default function EditAvatarPopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
+      isDisabled={isDisabled}
     >
       <input
-        className='popup__field popup__field_type_avatar'
+        className={`popup__field ${errors.avatar && 'popup__field_invalid'} popup__field_type_avatar`}
         placeholder='Ссылка на картинку'
         name='avatar'
-        id='profile-avatar-input'
         type='url'
-        ref={avatar}
+        value={avatar || ''}
+        onChange={handleChange}
         required
       />
-      <span className='profile-avatar-input-error popup__input-error'></span>
+      <span className='popup__input-error'>{errors.avatar}</span>
     </PopupWithForm>
   );
 }

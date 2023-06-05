@@ -22,8 +22,6 @@ export default function useAdditionalClosePopup(isOpen, closePopup) {
         document.removeEventListener('keydown', handleEscClose);
         document.removeEventListener('mousedown', handleOverlayClose);
       };
-    } else {
-      return;
     }
   }, [isOpen, closePopup]);
 }
