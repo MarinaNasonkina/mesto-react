@@ -30,8 +30,8 @@ export default function Card({
     <article className='card'>
       <div className='card__image-wrap'>
         <img
-          src={`${card.link}`}
-          alt={`${card.name}`}
+          src={`${card.link || '#'}`}
+          alt={`${card.name || ''}`}
           className='card__image'
           onClick={() => handleImageClick(card)}
         />

@@ -16,8 +16,8 @@ export default function ImagePopup({ card, isOpen, onClose }) {
           onClick={onClose}
         ></button>
         <img
-          src={`${card.link}`}
-          alt={`${card.name}`}
+          src={`${card.link || '#'}`}
+          alt={`${card.name || ''}`}
           className='popup__image'
         />
         <p className='popup__subtitle'>{card.name}</p>

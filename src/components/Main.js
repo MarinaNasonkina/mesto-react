@@ -19,7 +19,7 @@ export default function Main({
         <section className='profile'>
           <div className='profile__info'>
             <img
-              src={`${user.avatar}`}
+              src={`${user.avatar || '#'}`}
               alt='Аватар профиля.'
               className='profile__avatar'
             />
