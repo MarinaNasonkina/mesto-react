@@ -12,7 +12,7 @@ export default function ConfirmationPopup({
     onCardDelete(card);
   }
 
-  useAdditionalClosePopup(onClose);
+  useAdditionalClosePopup(isOpen, onClose);
 
   return (
     <PopupWithForm

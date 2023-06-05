@@ -10,8 +10,8 @@ export default function EditProfilePopup({
   isLoading,
 }) {
   const user = useContext(CurrentUserContext);
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+  const [name, setName] = useState(user.name);
+  const [description, setDescription] = useState(user.about);
 
   function handleNameChange(e) {
     setName(e.target.value);
@@ -29,18 +29,14 @@ export default function EditProfilePopup({
     });
   }
 
-  function handleCloseWithoutSubmit() {
-    onClose();
-    setName(user.name);
-    setDescription(user.about);
-  }
-
-  useAdditionalClosePopup(handleCloseWithoutSubmit);
-
   useEffect(() => {
-    setName(user.name);
-    setDescription(user.about);
-  }, [user]);
+    if (isOpen) {
+      setName(user.name);
+      setDescription(user.about);
+    }
+  }, [isOpen, user]);
+
+  useAdditionalClosePopup(isOpen, onClose);
 
   return (
     <PopupWithForm
@@ -48,7 +44,7 @@ export default function EditProfilePopup({
       title='Редактировать профиль'
       submitText='Сохранить'
       isOpen={isOpen}
-      onClose={handleCloseWithoutSubmit}
+      onClose={onClose}
       onSubmit={handleSubmit}
       isLoading={isLoading}
     >
@@ -59,7 +55,7 @@ export default function EditProfilePopup({
         id='profile-name-input'
         minLength='2'
         maxLength='40'
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
         required
       />
@@ -71,7 +67,7 @@ export default function EditProfilePopup({
         id='profile-about-input'
         minLength='2'
         maxLength='200'
-        value={description}
+        value={description || ''}
         onChange={handleDescriptionChange}
         required
       />

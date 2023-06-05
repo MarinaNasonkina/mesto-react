@@ -1,7 +1,7 @@
 import useAdditionalClosePopup from '../utils/useAdditionalClosePopup';
 
 export default function ImagePopup({ card, isOpen, onClose }) {
-  useAdditionalClosePopup(onClose);
+  useAdditionalClosePopup(isOpen, onClose);
 
   return (
     <section
